@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import Axios from "axios";
 
-// Import Modal Components
+// Import Components
 import PostModal from "./components/post/PostModal";
-
-// Import Order Componenets
 import OrderList from "./components/order/OrderList";
 import NavBar from "./components/navbar/NavBar";
 import Download from "./components/Download";
+import FilterContainer from "./components/filter/FilterContainer";
 
 const ORDER_ADDRESS = "http://localhost:5000/orders/";
 
@@ -18,6 +16,15 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [polling, setPolling] = useState(false);
   const [isDescending, setIsDescending] = useState(true);
+  const [conditions, setConditions] = useState({
+    polishing: false,
+    sizing: false,
+    lazer: false,
+    engraving: false,
+    plating: false,
+    rhodium: false,
+    cleaning: false,
+  });
 
   // Order Display
   const [filter, setFilter] = useState("all");
@@ -25,48 +32,72 @@ function App() {
 
   // Effects
   useEffect(() => {
+    // Compare array of objects to object of conditions
+    // Filter for objects that fufill those conditions
+    const secondaryFilter = (arr) => {
+      let arrFiltered = arr;
+      let inAction = false;
+      Object.entries(conditions).forEach((element) => {
+        if (element[1] === true) {
+          arrFiltered = arrFiltered.filter(function (order) {
+            return order.todo[element[0]] === true;
+          });
+          // If we reach this code then we have filtered
+          inAction = true;
+        }
+      });
+      if (inAction) {
+        console.log("filtered");
+        return arrFiltered;
+      }
+      // If no conditions are ticked return default array
+      else {
+        console.log("unfiltered");
+        return arr;
+      }
+    };
+
+    // Query Database for orders based on filter prereq
     const chooseDisplay = () => {
       Axios.get(ORDER_ADDRESS + filter)
         .then((response) => {
-          setDisplayOrders(response.data);
+          // Filter the response before display
+          setDisplayOrders(secondaryFilter(response.data));
         })
         .catch(function (error) {
           console.log(error);
         });
     };
+
+    // Run it up
     chooseDisplay();
-  }, [filter, polling, isDescending]);
+  }, [filter, conditions, polling]);
 
   // Functions
+  // Sort for descending date
   const compareDateDesc = (a, b) => {
     if (a.date < b.date) return 1;
     if (a.date > b.date) return -1;
     return 0;
   };
 
+  // Sort for ascending date
   const compareDateAsc = (a, b) => {
     if (a.date > b.date) return 1;
     if (a.date < b.date) return -1;
     return 0;
   };
 
-  // TURN INTO CHECKBOX, USEEFFECT TO REAPPLY IF ACTIVE ON ANY POLLING
-  const filterLazer = () => {
-    let lazerDone = displayOrders.filter(function (order) {
-      return order.todo.lazer === true;
-    });
-    setDisplayOrders(lazerDone);
-  };
-
+  // Test Function
   const printDisplayArray = () => {
     console.log(displayOrders);
   };
 
   return (
     <div className="App">
-      <button onClick={filterLazer}>FILTER LAZER</button>
       <button onClick={printDisplayArray}>PRINT DISPLAY ARRAY</button>
       <Download />
+      <FilterContainer conditions={conditions} setConditions={setConditions} />
       <PostModal
         polling={polling}
         setPolling={setPolling}
