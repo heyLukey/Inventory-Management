@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* MODAL */
+.modal-background {
+  position: absolute;
+  top: 10vh;
+  left: 25vw;
+  right: 25vw;
+  bottom: 10vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  /* border-radius: 4px; */
+  outline: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mymodal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: whitesmoke;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+/* NavBar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10vh;
+}
+
+/* FILTER SELECT BOX */
+
+.filter-select {
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  width: 60vw;
+  height: 4vh;
+  margin: 0.5rem;
+}
+
+/* MODAL BUTTON */
+.circle {
+  width: 4vh;
+  min-height: 4vh;
+  position: relative;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.6s ease;
+}
+.circle:hover {
+  background-color: rgb(9, 160, 9);
+}
+/* PLUS (before -> horizontal, after -> vertical) */
+.circle:before,
+.circle:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(9, 160, 9);
+  transition: background-color 0.3s ease;
+}
+.circle.plus:before {
+  width: 2px;
+  margin: 0.5rem auto;
+}
+.circle.plus:after {
+  margin: auto 0.5rem;
+  height: 2px;
+  box-shadow: none;
+}
+
+.circle:hover::before,
+.circle:hover::after {
+  background: white;
+}
+
+.sort-button {
+  width: 8vw;
+  min-height: 4vh;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  background-color: lightgray;
+}
+
+/* ORDER CONTAINER */
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-list {
+  width: 80%;
+  list-style: none;
+}
+
+/* ACCORDION MAIN DIV */
+.accordion-section {
+  border: 1px solid black;
+  margin: 0.5rem;
+}
+
+.accordion-top-closed {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  background-color: white;
+  transition: background-color 0.6s ease;
+  width: 100%;
+}
+
+.accordion-top-closed:hover {
+  background-color: lightgray;
+}
+
+.accordion-top-open {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: lightgray;
+  width: 100%;
+}
+
+/* ACCORDION TITLE TAB (CLOSED) */
+.accordion-closed {
+  display: flex;
+  justify-content: left;
+  border: none;
+  background-color: transparent;
+  color: black;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 90%;
+  cursor: pointer;
+}
+
+/* ACCORDION TITLE TAB (OPEN) */
+.accordion-title {
+  display: flex;
+  justify-content: left;
+  border: none;
+  background-color: transparent;
+  color: black;
+  width: 90%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.accordion-icon {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  color: black;
+  font-size: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(-90deg);
+}
+
+.delete-button {
+  display: flex;
+  justify-content: left;
+  border: none;
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+  padding: 0.5rem;
+  transition: background-color 0.6s ease;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: crimson;
+  color: white;
+}
+
+.patch-button {
+  display: flex;
+  justify-content: left;
+  border: none;
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+  padding: 0.5rem;
+  transition: background-color 0.6s ease;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.patch-button:hover {
+  background-color: lightskyblue;
+  color: white;
+}
+
+/* ACCORDION CONTENT */
+.accordion-content {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-size: 0.75rem;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.accordion-content ul {
+  list-style: none;
+}
+
+.todo {
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
