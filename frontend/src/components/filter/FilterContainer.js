@@ -1,44 +1,44 @@
 import React from "react";
 import FilterBox from "./FilterBox";
 
-const FilterContainer = ({ conditions, setCondtions }) => {
+const FilterContainer = ({ conditions, setConditions }) => {
   return (
     <React.Fragment>
       <div>
         <FilterBox
           filterID="polishing"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="sizing"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="lazer"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="engraving"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="plating"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="rhodium"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
         <FilterBox
           filterID="cleaning"
           conditions={conditions}
-          setCondtions={setCondtions}
+          setConditions={setConditions}
         />
       </div>
     </React.Fragment>

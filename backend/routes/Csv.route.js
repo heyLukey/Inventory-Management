@@ -22,12 +22,6 @@ const relevantData = [
   "recycled",
 ];
 
-// router.get("/test", async (req, res) => {
-//   const dateTime = moment().valueOf();
-//   const filepath = "../downloads/" + "csv-" + dateTime + ".csv";
-//   res.json(filepath);
-// });
-
 router.get("/write", async (req, res) => {
   try {
     let csv;
@@ -49,21 +43,20 @@ router.get("/write", async (req, res) => {
         console.log(err);
       } else {
         console.log("File was downloaded!");
+        fs.unlink(filepath, function (err) {
+          console.log(err);
+        })
+          .then(() => {
+            console.log("File was deleted successfully!");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     });
   } catch (err) {
     res.status(400).json({ error: err });
   }
-});
-
-router.get("/download", async (req, res) => {
-  res.download("tmp/test.csv", function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("File was downloaded!");
-    }
-  });
 });
 
 module.exports = router;

@@ -47,12 +47,12 @@ function App() {
         }
       });
       if (inAction) {
-        console.log("filtered");
+        console.log("Filter: " + filter + " " + JSON.stringify(conditions));
         return arrFiltered;
       }
       // If no conditions are ticked return default array
       else {
-        console.log("unfiltered");
+        console.log("Filter: " + filter + " " + JSON.stringify(conditions));
         return arr;
       }
     };

@@ -9,7 +9,7 @@ const Download = () => {
   const csvDownload = () => {
     Axios.get(CSV_ADDRESS + "write")
       .then((response) => {
-        console.log(response.data);
+        console.log("File Downloaded!");
         FileDownload(response.data, "report.csv");
       })
       .catch(function (error) {

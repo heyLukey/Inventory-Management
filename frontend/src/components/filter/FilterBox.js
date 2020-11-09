@@ -1,11 +1,17 @@
 import React from "react";
 
 const FilterBox = ({ filterID, conditions, setConditions }) => {
-  const testPrint = (event) => {
+  const toggleCondition = (event) => {
+    // Must use assign because JS Objects are reference values
+    // This means that using '=' and then changing the object
+    // will not trigger useEffect
+    const newConditions = Object.assign({}, conditions);
     if (event.target.checked) {
-      console.log(filterID);
+      newConditions[filterID] = true;
+      setConditions(newConditions);
     } else if (!event.target.checked) {
-      console.log("off");
+      newConditions[filterID] = false;
+      setConditions(newConditions);
     }
   };
 
@@ -14,7 +20,7 @@ const FilterBox = ({ filterID, conditions, setConditions }) => {
       <div>
         <label>
           {filterID}
-          <input type="checkbox" id={filterID} onClick={testPrint} />
+          <input type="checkbox" id={filterID} onClick={toggleCondition} />
         </label>
       </div>
     </React.Fragment>
