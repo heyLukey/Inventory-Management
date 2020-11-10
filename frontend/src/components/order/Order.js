@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DeleteButton from "../delete/DeleteButton";
 import PatchButton from "../patch/PatchButton";
 import OrderContent from "./OrderContent";
+import ToggleStatus from "./ToggleStatus";
 
 const Order = ({ polling, setPolling, orderObject }) => {
   // States
@@ -19,6 +20,11 @@ const Order = ({ polling, setPolling, orderObject }) => {
           <button onClick={toggleOpen} className="accordion-title">
             {orderObject.title}
           </button>
+          <ToggleStatus
+            polling={polling}
+            setPolling={setPolling}
+            orderObject={orderObject}
+          />
           <PatchButton
             polling={polling}
             setPolling={setPolling}
