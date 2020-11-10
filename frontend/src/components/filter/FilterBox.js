@@ -7,10 +7,10 @@ const FilterBox = ({ filterID, conditions, setConditions }) => {
     // will not trigger useEffect
     const newConditions = Object.assign({}, conditions);
     if (event.target.checked) {
-      newConditions[filterID] = true;
+      newConditions[filterID] = false;
       setConditions(newConditions);
     } else if (!event.target.checked) {
-      newConditions[filterID] = false;
+      newConditions[filterID] = true;
       setConditions(newConditions);
     }
   };

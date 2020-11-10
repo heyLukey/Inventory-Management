@@ -19,20 +19,23 @@ const PostForm = ({ polling, setPolling, modalClose }) => {
 
     const orderSubmission = {
       title: event.target.title.value,
+      customer: event.target.customer.value,
       description: event.target.desc.value,
       quantity: event.target.quantity.value,
-      deadline: date.toISOString(),
+      price: event.target.price.value,
       todo: {
-        polishing: event.target.polishing.checked,
-        sizing: event.target.sizing.checked,
-        lazer: event.target.lazer.checked,
-        engraving: event.target.engraving.checked,
-        plating: event.target.plating.checked,
-        rhodium: event.target.rhodium.checked,
-        cleaning: event.target.cleaning.checked,
+        polishing: !event.target.polishing.checked,
+        sizing: !event.target.sizing.checked,
+        lazer: !event.target.lazer.checked,
+        engraving: !event.target.engraving.checked,
+        plating: !event.target.plating.checked,
+        rhodium: !event.target.rhodium.checked,
+        cleaning: !event.target.cleaning.checked,
       },
+      deadline: date.toISOString(),
+      notes: event.target.notes.value,
     };
-    console.log(orderSubmission.todo);
+    console.log(orderSubmission);
 
     Axios.post(POST_ADDRESS, orderSubmission)
       .then(function (response) {
@@ -50,34 +53,30 @@ const PostForm = ({ polling, setPolling, modalClose }) => {
   return (
     <React.Fragment>
       <form onSubmit={postMe}>
-        <div className="form-group">
+        <div>
+          <label>Customer</label>
+          <input id="customer" type="text" required placeholder="customer" />
+        </div>
+        <div>
           <label>Title</label>
-          <input
-            id="title"
-            type="text"
-            required
-            className="form-control"
-            placeholder="title"
-          />
+          <input id="title" type="text" required placeholder="title" />
         </div>
-        <div className="form-group">
+        <div>
           <label>Description</label>
-          <input
-            id="desc"
-            type="text"
-            required
-            className="form-control"
-            placeholder="description"
-          />
+          <input id="desc" type="text" required placeholder="description" />
         </div>
-        <div className="form-group">
+        <div>
           <label>Quantity</label>
+          <input id="quantity" type="text" required placeholder="1" />
+        </div>
+        <div>
+          <label>Price</label>
           <input
-            id="quantity"
+            id="price"
             type="text"
             required
-            className="form-control"
-            placeholder="1"
+            placeholder="0.00"
+            pattern="^\d*(\.\d{0,2})?$"
           />
         </div>
         <div>
@@ -122,7 +121,7 @@ const PostForm = ({ polling, setPolling, modalClose }) => {
             <input type="checkbox" id="cleaning"></input>
           </label>
         </div>
-        <div className="form-group">
+        <div>
           <label>Deadline</label>
           <div>
             <Calendar
@@ -133,12 +132,12 @@ const PostForm = ({ polling, setPolling, modalClose }) => {
             />
           </div>
         </div>
-        <div className="form-group">
-          <button
-            type="submit"
-            value="Create New Order"
-            className="btn btn-primary"
-          >
+        <div>
+          <label>Notes</label>
+          <input id="notes" type="text" placeholder="notes" />
+        </div>
+        <div>
+          <button type="submit" value="Create New Order">
             Create New Order
           </button>
         </div>

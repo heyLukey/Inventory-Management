@@ -4,11 +4,14 @@ const Order = require("../models/Orders.model");
 // POST new order
 router.post("/create", async (req, res) => {
   const order = new Order({
-    description: req.body.description,
-    deadline: req.body.deadline,
-    quantity: req.body.quantity,
     title: req.body.title,
+    customer: req.body.customer,
+    description: req.body.description,
+    quantity: req.body.quantity,
+    price: req.body.price,
     todo: req.body.todo,
+    deadline: req.body.deadline,
+    notes: req.body.notes,
   });
 
   try {
@@ -121,6 +124,20 @@ router.patch("/title/:orderID", async (req, res) => {
   }
 });
 
+// PATCH specific order {customer}
+router.patch("/customer/:orderID", async (req, res) => {
+  try {
+    const patchOrderCustomer = await Order.updateOne(
+      { _id: req.params.orderID },
+      { $set: { customer: req.body.customer } },
+      { runValidators: true }
+    );
+    res.json(patchOrderCustomer);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+});
+
 // PATCH specific order {description}
 router.patch("/desc/:orderID", async (req, res) => {
   try {
@@ -130,20 +147,6 @@ router.patch("/desc/:orderID", async (req, res) => {
       { runValidators: true }
     );
     res.json(patchOrderDesc);
-  } catch (err) {
-    res.status(400).json({ error: err });
-  }
-});
-
-// PATCH specific order {todo}
-router.patch("/todo/:orderID", async (req, res) => {
-  try {
-    const patchOrderToDo = await Order.updateOne(
-      { _id: req.params.orderID },
-      { $set: { todo: req.body.todo } },
-      { runValidators: true }
-    );
-    res.json(patchOrderToDo);
   } catch (err) {
     res.status(400).json({ error: err });
   }
@@ -163,6 +166,34 @@ router.patch("/quantity/:orderID", async (req, res) => {
   }
 });
 
+// PATCH specific order {price}
+router.patch("/price/:orderID", async (req, res) => {
+  try {
+    const patchOrderPrice = await Order.updateOne(
+      { _id: req.params.orderID },
+      { $set: { price: req.body.price } },
+      { runValidators: true }
+    );
+    res.json(patchOrderPrice);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+});
+
+// PATCH specific order {todo}
+router.patch("/todo/:orderID", async (req, res) => {
+  try {
+    const patchOrderToDo = await Order.updateOne(
+      { _id: req.params.orderID },
+      { $set: { todo: req.body.todo } },
+      { runValidators: true }
+    );
+    res.json(patchOrderToDo);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+});
+
 // PATCH specific order {deadline}
 router.patch("/deadline/:orderID", async (req, res) => {
   try {
@@ -172,6 +203,20 @@ router.patch("/deadline/:orderID", async (req, res) => {
       { runValidators: true }
     );
     res.json(patchOrderDeadline);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+});
+
+// PATCH specific order {notes}
+router.patch("/notes/:orderID", async (req, res) => {
+  try {
+    const patchOrderNotes = await Order.updateOne(
+      { _id: req.params.orderID },
+      { $set: { notes: req.body.notes } },
+      { runValidators: true }
+    );
+    res.json(patchOrderNotes);
   } catch (err) {
     res.status(400).json({ error: err });
   }

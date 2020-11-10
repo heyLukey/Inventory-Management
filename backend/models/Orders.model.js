@@ -9,12 +9,25 @@ const orderSchema = mongoose.Schema({
     min: 1,
     max: 24,
   },
+  customer: {
+    type: String,
+    required: true,
+    trim: true,
+    min: 1,
+    max: 64,
+  },
   description: {
     type: String,
     required: true,
     trim: true,
     min: 1,
     max: 280,
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0.01,
+    max: 16777216,
   },
   todo: {
     polishing: { type: Boolean, default: false, required: true },
@@ -37,9 +50,15 @@ const orderSchema = mongoose.Schema({
     // set to ISO to allow same day
     min: new Date().toISOString(),
   },
-  date: {
+  created: {
     type: Date,
     default: Date.now,
+  },
+  notes: {
+    type: String,
+    trim: true,
+    min: 0,
+    max: 280,
   },
   recycled: {
     type: Boolean,

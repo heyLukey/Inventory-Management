@@ -19,10 +19,10 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
 
     // Submission Objects
     const titleSubmission = { title: event.target.title.value };
+    const customerSubmission = { customer: event.target.customer.value };
     const descSubmission = { description: event.target.desc.value };
     const quantitySubmission = { quantity: event.target.quantity.value };
-    const deadlineSubmission = { deadline: date.toISOString() };
-
+    const priceSubmission = { price: event.target.price.value };
     const todoSubmission = {
       todo: {
         polishing: event.target.polishing.checked,
@@ -34,13 +34,14 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
         cleaning: event.target.cleaning.checked,
       },
     };
+    const deadlineSubmission = { deadline: date.toISOString() };
+    const notesSubmission = { notes: event.target.notes.value };
 
-    // Todo
-    Axios.patch(ROOT_ADDRESS + "todo/" + orderObject._id, todoSubmission)
-      .then(function (response) {
-        if (titleSubmission !== orderObject.todo) {
-          console.log("New todo!");
-          console.log(response.data);
+    // Title
+    Axios.patch(ROOT_ADDRESS + "title/" + orderObject._id, titleSubmission)
+      .then(function () {
+        if (titleSubmission.title !== orderObject.title) {
+          console.log("New title!");
         }
         setPolling(!polling);
       })
@@ -48,12 +49,14 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
         console.log(error);
       });
 
-    // Title
-    Axios.patch(ROOT_ADDRESS + "title/" + orderObject._id, titleSubmission)
-      .then(function (response) {
-        if (titleSubmission.title !== orderObject.title) {
-          console.log("New title!");
-          console.log(response.data);
+    // Customer
+    Axios.patch(
+      ROOT_ADDRESS + "customer/" + orderObject._id,
+      customerSubmission
+    )
+      .then(function () {
+        if (customerSubmission.customer !== orderObject.customer) {
+          console.log("New customer!");
         }
         setPolling(!polling);
       })
@@ -63,10 +66,9 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
 
     // Description
     Axios.patch(ROOT_ADDRESS + "desc/" + orderObject._id, descSubmission)
-      .then(function (response) {
+      .then(function () {
         if (descSubmission.description !== orderObject.description) {
           console.log("New description!");
-          console.log(response.data);
         }
         setPolling(!polling);
       })
@@ -79,10 +81,33 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
       ROOT_ADDRESS + "quantity/" + orderObject._id,
       quantitySubmission
     )
-      .then(function (response) {
+      .then(function () {
         if (Number(quantitySubmission.quantity) !== orderObject.quantity) {
           console.log("New quantity!");
-          console.log(response.data);
+        }
+        setPolling(!polling);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // Price
+    Axios.patch(ROOT_ADDRESS + "price/" + orderObject._id, priceSubmission)
+      .then(function () {
+        if (Number(priceSubmission.price) !== orderObject.price) {
+          console.log("New price!");
+        }
+        setPolling(!polling);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // Todo
+    Axios.patch(ROOT_ADDRESS + "todo/" + orderObject._id, todoSubmission)
+      .then(function () {
+        if (titleSubmission !== orderObject.todo) {
+          console.log("New todo!");
         }
         setPolling(!polling);
       })
@@ -95,10 +120,21 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
       ROOT_ADDRESS + "deadline/" + orderObject._id,
       deadlineSubmission
     )
-      .then(function (response) {
+      .then(function () {
         if (deadlineSubmission.deadline !== orderObject.deadline) {
           console.log("New deadline!");
-          console.log(response.data);
+        }
+        setPolling(!polling);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // Notes
+    Axios.patch(ROOT_ADDRESS + "notes/" + orderObject._id, notesSubmission)
+      .then(function () {
+        if (notesSubmission.notes !== orderObject.notes) {
+          console.log("New notes!");
         }
         setPolling(!polling);
       })
@@ -122,6 +158,15 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
           />
         </div>
         <div>
+          <label>Customer</label>
+          <input
+            id="customer"
+            type="text"
+            required
+            defaultValue={orderObject.customer}
+          />
+        </div>
+        <div>
           <label>Description</label>
           <input
             id="desc"
@@ -137,6 +182,17 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
             type="text"
             required
             defaultValue={orderObject.quantity}
+          />
+        </div>
+        <div>
+          <label>Price</label>
+          <input
+            id="price"
+            type="text"
+            required
+            defaultValue={orderObject.price}
+            // two decimal place max
+            pattern="^\d*(\.\d{0,2})?$"
           />
         </div>
         <div>
@@ -219,6 +275,15 @@ const PatchForm = ({ polling, setPolling, patchClose, orderObject }) => {
               minDate={new Date()}
             />
           </div>
+        </div>
+        <div>
+          <label>Notes</label>
+          <input
+            id="notes"
+            type="text"
+            required
+            defaultValue={orderObject.notes}
+          />
         </div>
         <div>
           <button type="submit" value="Create New Order">
